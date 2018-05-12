@@ -40,7 +40,6 @@ class Sensor:
         GPIO.setup(self.ECHO, GPIO.IN)
 
     def pulse(self):
-        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " START PULSE"
         GPIO.output(self.TRIGGER, True)
 
         # set Trigger after 0.01ms to LOW
@@ -66,6 +65,6 @@ class Sensor:
         if distance > 1.0:
             distance = 1.0
 
-        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " END PULSE -> ", distance
+        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " PULSE -> ", distance
 
         return distance

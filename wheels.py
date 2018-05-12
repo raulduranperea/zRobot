@@ -59,10 +59,10 @@ class MockWheel:
 
     def __init__(self, name):
         self.Name = name
-        print("init Mock Wheel " + self.Name)
+        print "init Mock Wheel ", self.Name
 
     def setup(self):
-        print("setup Wheel " + self.Name)
+        print "setup Wheel ", self.Name
 
     def move(self, velocity):
-        print("move Wheel " + self.Name + " with velocity: " + velocity)
+        print "move Wheel ", self.Name, " with velocity: ", velocity
