@@ -13,7 +13,7 @@ class Processor:
     def process(self, array_distances):
         r = [1.0] * 2
         theta = [10, 46, 82, 118, 154, -170, -134, -98, -62,
-                 -26]  # Sensores colocados a partir del angulo 10º en posiciones de 36 grados
+                 -26]  # Sensores colocados a partir del angulo 10 en posiciones de 36 grados
         x = 0
         y = 0
 
