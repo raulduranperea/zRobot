@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 
+
 class Sensors:
     array_sensors = None
 

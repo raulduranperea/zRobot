@@ -16,5 +16,5 @@ class Runtime:
         self.sensors.start(self._step)
 
     def _step(self, array_distances):
-        velocities = self.processor.process(array_distances) #array de dos posiciones de -1 a 1
+        velocities = self.processor.process(array_distances)  # array de dos posiciones de -1 a 1
         self.wheels.move(velocities)

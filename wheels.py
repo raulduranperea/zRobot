@@ -51,3 +51,18 @@ class Wheel:
             wiringpi.softPwmWrite(self.GPIO_PWM, duty_cycle)
             GPIO.output(self.GPIO_control1, GPIO.HIGH)
             GPIO.output(self.GPIO_control2, GPIO.LOW)
+
+
+class MockWheel:
+
+    Name = "noname"
+
+    def __init__(self, name):
+        self.Name = name
+        print("init Mock Wheel " + self.Name)
+
+    def setup(self):
+        print("setup Wheel " + self.Name)
+
+    def move(self, velocity):
+        print("move Wheel " + self.Name + " with velocity: " + velocity)

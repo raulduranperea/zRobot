@@ -5,18 +5,21 @@ import math
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
+
 class Processor:
+    def __init__(self):
+        pass
+
     def process(self, array_distances):
-
-
-        r = [1.0]*2
-        theta = [10, 46, 82, 118, 154, -170, -134, -98, -62, -26] #Sensores colocados a partir del angulo 10º en posiciones de 36 grados
+        r = [1.0] * 2
+        theta = [10, 46, 82, 118, 154, -170, -134, -98, -62,
+                 -26]  # Sensores colocados a partir del angulo 10º en posiciones de 36 grados
         x = 0
         y = 0
 
-        for i in range (0.10):
-            x = x + array_distances[i]*math.cos(np.radians(theta[i]))
-            y = y + array_distances[i]*math.sin(np.radians(theta[i]))
+        for i in range(0.10):
+            x = x + array_distances[i] * math.cos(np.radians(theta[i]))
+            y = y + array_distances[i] * math.sin(np.radians(theta[i]))
 
         repulsion_angle = math.atan2(y, x)
 
@@ -56,3 +59,11 @@ class Processor:
         r[1] = fuzz.defuzz(x_speed_dcha, aggregated2, 'mom')
 
         return r
+
+
+class MockProcessor:
+    def __init__(self):
+        pass
+
+    def process(self, array_distances):
+        print("distance:" + array_distances)

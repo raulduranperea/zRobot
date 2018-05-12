@@ -1,26 +1,27 @@
 from sensors import Sensor
 from sensors import Sensors
 from wheels import Wheel
+from wheels import MockWheel
 from wheels import Wheels
 from runtime import Runtime
+from processor import MockProcessor
 
+sensor1 = Sensor(11, 13)
+# sensor2 = Sensor()
+sensor3 = Sensor(15, 16)
+# sensor4 = Sensor()
+sensor5 = Sensor(18, 19)
+sensor6 = Sensor(21, 22)
+# sensor7 = Sensor()
+sensor8 = Sensor(23, 24)
+# sensor9 = Sensor()
+sensor10 = Sensor(26, 27)
 
-sensor1 = Sensor()
-sensor2 = Sensor()
-sensor3 = Sensor()
-sensor4 = Sensor()
-sensor5 = Sensor()
-sensor6 = Sensor()
-sensor7 = Sensor()
-sensor8 = Sensor()
-sensor9 = Sensor()
-sensor10 = Sensor()
-
-zrobot_sensors = Sensors([sensor1, sensor2, sensor3, sensor4, sensor5, sensor6, sensor7, sensor8, sensor9, sensor10])
-leftMotor = Wheel()
-rightMotor = Wheel()
+zrobot_sensors = Sensors([sensor1, sensor3, sensor5, sensor6, sensor8, sensor10])
+leftMotor = MockWheel("leftMotor")
+rightMotor = MockWheel("rightMotor")
 zrobot_wheels = Wheels(leftMotor, rightMotor)
 
-zrobot_processor = None
+zrobot_processor = MockProcessor()
 zrobot_runtime = Runtime(zrobot_sensors, zrobot_processor, zrobot_wheels)
 zrobot_runtime.start()
