@@ -34,7 +34,7 @@ class Sensor:
         pass
 
     def setup(self):
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
         # set GPIO direction (IN / OUT)
         GPIO.setup(self.TRIGGER, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
