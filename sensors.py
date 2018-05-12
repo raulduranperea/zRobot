@@ -19,6 +19,8 @@ class Sensors:
             distances = []
             for sensor in self.array_sensors:
                 distances.append(sensor.pulse())
+
+            print "Distances: ", distances
             callback(distances)
 
 
@@ -38,6 +40,7 @@ class Sensor:
         GPIO.setup(self.ECHO, GPIO.IN)
 
     def pulse(self):
+        print "Sensor: " + self.TRIGGER + " " + self.ECHO + " START PULSE"
         GPIO.output(self.TRIGGER, True)
 
         # set Trigger after 0.01ms to LOW
@@ -62,5 +65,7 @@ class Sensor:
         distance = distance / 100
         if distance > 1.0:
             distance = 1.0
+
+        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " END PULSE -> ", distance
 
         return distance
