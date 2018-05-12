@@ -2,6 +2,7 @@ import numpy as np
 import math
 import skfuzzy as fuzz
 
+
 class Processor:
     def __init__(self):
         pass
@@ -62,4 +63,4 @@ class MockProcessor:
         pass
 
     def process(self, array_distances):
-        print("distance:" + array_distances)
+        print "distance: ", array_distances
