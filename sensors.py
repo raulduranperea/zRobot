@@ -20,7 +20,6 @@ class Sensors:
             for sensor in self.array_sensors:
                 distances.append(sensor.pulse())
 
-            print "Distances: ", distances
             callback(distances)
 
 
