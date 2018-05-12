@@ -40,7 +40,7 @@ class Sensor:
         GPIO.setup(self.ECHO, GPIO.IN)
 
     def pulse(self):
-        print "Sensor: " + self.TRIGGER + " " + self.ECHO + " START PULSE"
+        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " START PULSE"
         GPIO.output(self.TRIGGER, True)
 
         # set Trigger after 0.01ms to LOW
