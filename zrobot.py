@@ -5,7 +5,7 @@ from wheels import MockWheel
 from wheels import Wheels
 import RPi.GPIO as GPIO
 from runtime import Runtime
-
+from processor import MockProcessor
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -25,6 +25,6 @@ leftMotor = MockWheel("leftMotor")
 rightMotor = MockWheel("rightMotor")
 zrobot_wheels = Wheels(leftMotor, rightMotor)
 
-zrobot_processor = None
+zrobot_processor = MockProcessor()
 zrobot_runtime = Runtime(zrobot_sensors, zrobot_processor, zrobot_wheels)
 zrobot_runtime.start()
