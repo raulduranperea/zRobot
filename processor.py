@@ -1,8 +1,6 @@
 import numpy as np
 import math
 import skfuzzy as fuzz
-from skfuzzy import control as ctrl
-
 
 class Processor:
     def __init__(self):
