@@ -64,3 +64,4 @@ class MockProcessor:
 
     def process(self, array_distances):
         print "distance: ", array_distances
+        return [0.1, 0.1]
