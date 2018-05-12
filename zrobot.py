@@ -3,7 +3,11 @@ from sensors import Sensors
 from wheels import Wheel
 from wheels import MockWheel
 from wheels import Wheels
+import RPi.GPIO as GPIO
 from runtime import Runtime
+
+
+GPIO.setmode(GPIO.BOARD)
 
 sensor1 = Sensor(11, 13)
 # sensor2 = Sensor()
