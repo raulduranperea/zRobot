@@ -18,7 +18,7 @@ sensor6 = Sensor(21, 22)
 # sensor7 = Sensor()
 sensor8 = Sensor(23, 24)
 # sensor9 = Sensor()
-sensor10 = Sensor(26, 27)
+sensor10 = Sensor(26, 29)
 
 zrobot_sensors = Sensors([sensor1, sensor3, sensor5, sensor6, sensor8, sensor10])
 leftMotor = MockWheel("leftMotor")
