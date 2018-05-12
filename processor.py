@@ -1,5 +1,3 @@
-import sensors
-import zrobot
 import numpy as np
 import math
 import skfuzzy as fuzz
