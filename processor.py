@@ -4,58 +4,77 @@ import skfuzzy as fuzz
 
 
 class Processor:
+    thetas = [45, 90, 135, -135, -90, -45]
+
+    angle = np.arange(-math.pi, math.pi, 0.1)
+    x_speed_right = np.arange(0, 1, 0.1)
+    x_speed_left = np.arange(0, 1, 0.1)
+
+    angle_negative = fuzz.trimf(angle, [-math.pi, -math.pi, -math.pi / 4])
+    angle_null = fuzz.trimf(angle, [-math.pi, 0, math.pi])
+    angle_positive = fuzz.trimf(angle, [math.pi / 4, math.pi, math.pi])
+
+    speed_right_slow = fuzz.trimf(x_speed_right, [0.0, 0.0, 0.5])
+    speed_right_medium = fuzz.trimf(x_speed_right, [0.3, 0.5, 0.7])
+    speed_right_fast = fuzz.trimf(x_speed_right, [0.5, 1.0, 1.0])
+
+    speed_left_slow = fuzz.trimf(x_speed_left, [0.0, 0.0, 0.5])
+    speed_left_medium = fuzz.trimf(x_speed_left, [0.3, 0.5, 0.7])
+    speed_left_fast = fuzz.trimf(x_speed_left, [0.5, 1.0, 1.0])
+
     def __init__(self):
         pass
 
     def process(self, array_distances):
+        print "Distances: ", array_distances
+        repulsion_angle = self.calc_repulsion_angle(array_distances)
+
+        angle_level_negative = fuzz.interp_membership(self.angle, self.angle_negative, repulsion_angle)
+        angle_level_null = fuzz.interp_membership(self.angle, self.angle_null, repulsion_angle)
+        angle_level_positive = fuzz.interp_membership(self.angle, self.angle_positive, repulsion_angle)
+
+        left_fuzz = self.aggregated_left(angle_level_negative, angle_level_null, angle_level_positive)
+        right_fuzz = self.aggregated_right(angle_level_negative, angle_level_null, angle_level_positive)
+
+        return self.calc_velocity(left_fuzz, right_fuzz)
+
+    def calc_velocity(self, left_fuzz, right_fuzz):
         r = [1.0] * 2
-        theta = [10, 46, 82, 118, 154, -170, -134, -98, -62,
-                 -26]  # Sensores colocados a partir del angulo 10 en posiciones de 36 grados
-        x = 0
-        y = 0
-
-        for i in range(0.10):
-            x = x + array_distances[i] * math.cos(np.radians(theta[i]))
-            y = y + array_distances[i] * math.sin(np.radians(theta[i]))
-
-        repulsion_angle = math.atan2(y, x)
-
-        angulo = np.arange(-math.pi, math.pi, 0.1)
-        x_speed_dcha = np.arange(0, 1, 0.1)
-        x_speed_izda = np.arange(0, 1, 0.1)
-
-        angulo_negativo = fuzz.trimf(angulo, [-math.pi, -math.pi, -math.pi / 4])
-        angulo_nulo = fuzz.trimf(angulo, [-math.pi, 0, math.pi])
-        angulo_positivo = fuzz.trimf(angulo, [math.pi / 4, math.pi, math.pi])
-
-        speed_dcha_lento = fuzz.trimf(x_speed_dcha, [0, 0, 0.9])
-        speed_dcha_medio = fuzz.trimf(x_speed_dcha, [0.5, 0.9, 1.3])
-        speed_dcha_rapido = fuzz.trimf(x_speed_dcha, [0.9, 1.5, 1.5])
-
-        speed_izda_lento = fuzz.trimf(x_speed_izda, [0, 0, 0.9])
-        speed_izda_medio = fuzz.trimf(x_speed_izda, [0.5, 0.9, 1.3])
-        speed_izda_rapido = fuzz.trimf(x_speed_izda, [0.9, 1.5, 1.5])
-
-        angulo_nivel_negativo = fuzz.interp_membership(angulo, angulo_negativo, repulsion_angle)
-        angulo_nivel_nulo = fuzz.interp_membership(angulo, angulo_nulo, repulsion_angle)
-        angulo_nivel_positivo = fuzz.interp_membership(angulo, angulo_positivo, repulsion_angle)
-
-        speed_activation_dcha_lento = np.fmin(angulo_nivel_negativo, speed_dcha_rapido)
-        speed_activation_dcha_medio = np.fmin(angulo_nivel_nulo, speed_dcha_medio)
-        speed_activation_dcha_rapido = np.fmin(angulo_nivel_positivo, speed_dcha_lento)
-
-        speed_activation_izda_lento = np.fmin(angulo_nivel_negativo, speed_izda_lento)
-        speed_activation_izda_medio = np.fmin(angulo_nivel_nulo, speed_izda_medio)
-        speed_activation_izda_rapido = np.fmin(angulo_nivel_positivo, speed_izda_rapido)
-
-        aggregated1 = np.fmax(speed_activation_izda_medio,
-                              np.fmax(speed_activation_izda_rapido, speed_activation_izda_lento))
-        aggregated2 = np.fmax(speed_activation_dcha_rapido,
-                              np.fmax(speed_activation_dcha_medio, speed_activation_dcha_lento))
-        r[0] = fuzz.defuzz(x_speed_izda, aggregated1, 'mom')
-        r[1] = fuzz.defuzz(x_speed_dcha, aggregated2, 'mom')
-
+        r[0] = fuzz.defuzz(self.x_speed_left, left_fuzz, 'mom')
+        r[1] = fuzz.defuzz(self.x_speed_right, right_fuzz, 'mom')
         return r
+
+    def aggregated_left(self, negative, null, positive):
+        return self.aggregated(negative,
+                               null,
+                               positive,
+                               self.speed_left_slow,
+                               self.speed_left_medium,
+                               self.speed_left_fast)
+
+    def aggregated_right(self, negative, null, positive):
+        return self.aggregated(negative,
+                               null,
+                               positive,
+                               self.speed_right_slow,
+                               self.speed_right_medium,
+                               self.speed_right_fast)
+
+    def aggregated(self, negative, null, positive, slow, medium, fast):
+        activation_slow = np.fmin(negative, slow)
+        activation_medium = np.fmin(null, medium)
+        activation_fast = np.fmin(positive, fast)
+        return np.fmax(activation_slow, np.fmax(activation_medium, activation_fast))
+
+    def calc_repulsion_angle(self, array_distances):
+        x = 0.0
+        y = 0.0
+
+        for i in range(0, 6):
+            x = x + array_distances[i] * math.cos(np.radians(self.thetas[i]))
+            y = y + array_distances[i] * math.sin(np.radians(self.thetas[i]))
+
+        return math.atan2(y, x)
 
 
 class MockProcessor:
