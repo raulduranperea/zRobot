@@ -23,14 +23,16 @@ class Wheels:
 
 
 class Wheel:
+    WIRING_PIN = None
     GPIO_PWM = None
     GPIO_control1 = None
     GPIO_control2 = None
 
-    def __init__(self, GPIO_control1, GPIO_control2, GPIO_PWM):
+    def __init__(self, GPIO_control1, GPIO_control2, GPIO_PWM, WIRING_PIN):
         self.GPIO_control1 = GPIO_control1
         self.GPIO_control2 = GPIO_control2
         self.GPIO_PWM = GPIO_PWM
+        self.WIRING_PIN = WIRING_PIN
         pass
 
     def setup(self):
@@ -38,12 +40,8 @@ class Wheel:
         GPIO.setup(self.GPIO_control1, GPIO.OUT)
         GPIO.setup(self.GPIO_control2, GPIO.OUT)
         wiringpi.wiringPiSetup()
-        if self.GPIO_PWM == 12:
-            wiringpi.pinMode(1, 1)
-            wiringpi.softPwmCreate(1, 0, 100)
-        else:
-            wiringpi.pinMode(self.GPIO_PWM, self.GPIO_PWM)
-            wiringpi.softPwmCreate(self.GPIO_PWM, 0, 100)
+        wiringpi.pinMode(self.WIRING_PIN, wiringpi.GPIO.PWM_OUTPUT)
+        wiringpi.softPwmCreate(self.WIRING_PIN, 0, 100)
 
     def move(self, velocity):
         print "move Wheel with velocity: ", velocity
