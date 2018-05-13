@@ -47,13 +47,13 @@ class Wheel:
         print "move Wheel with velocity: ", velocity
         if velocity < 0.0:
             duty_cycle = velocity * -100
-            wiringpi.softPwmWrite(self.GPIO_PWM, int(duty_cycle))
+            wiringpi.softPwmWrite(self.WIRING_PIN, int(duty_cycle))
             GPIO.output(self.GPIO_control1, GPIO.LOW)
             GPIO.output(self.GPIO_control2, GPIO.HIGH)
 
         else:
             duty_cycle = velocity * 100
-            wiringpi.softPwmWrite(self.GPIO_PWM, int(duty_cycle))
+            wiringpi.softPwmWrite(self.WIRING_PIN, int(duty_cycle))
             GPIO.output(self.GPIO_control1, GPIO.HIGH)
             GPIO.output(self.GPIO_control2, GPIO.LOW)
 
