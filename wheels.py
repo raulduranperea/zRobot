@@ -40,7 +40,7 @@ class Wheel:
         GPIO.setup(self.GPIO_control1, GPIO.OUT)
         GPIO.setup(self.GPIO_control2, GPIO.OUT)
         wiringpi.wiringPiSetup()
-        wiringpi.pinMode(self.WIRING_PIN, wiringpi.GPIO.PWM_OUTPUT)
+        wiringpi.pinMode(self.WIRING_PIN, self.WIRING_PIN)
         wiringpi.softPwmCreate(self.WIRING_PIN, 0, 100)
 
     def move(self, velocity):
