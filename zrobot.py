@@ -16,7 +16,7 @@ sensor6 = Sensor(21, 22)
 sensor8 = Sensor(23, 24)
 sensor10 = Sensor(26, 29)
 
-leftMotor = Wheel(3, 5, 7, 7)
+leftMotor = Wheel(5, 3, 7, 7)
 rightMotor = Wheel(8, 10, 12, 1)
 # rightMotor = MockWheel("rightWheel")
 
