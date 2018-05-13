@@ -16,11 +16,13 @@ class Sensors:
 
     def start(self, callback):
         while True:
+
             distances = []
             for sensor in self.array_sensors:
                 distances.append(sensor.pulse())
 
             callback(distances)
+            time.sleep(0.00200)
 
 
 class Sensor:
