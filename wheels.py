@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import runtime
 import wiringpi
-
+import math
 
 class Wheels:
     left_wheel = None
@@ -37,18 +37,25 @@ class Wheel:
         GPIO.setup(self.GPIO_PWM, GPIO.OUT)
         GPIO.setup(self.GPIO_control1, GPIO.OUT)
         GPIO.setup(self.GPIO_control2, GPIO.OUT)
+        wiringpi.wiringPiSetup()
+        if self.GPIO_PWM == 12:
+            wiringpi.pinMode(1, 1)
+            wiringpi.softPwmCreate(1, 0, 100)
+        else:
+            wiringpi.pinMode(self.GPIO_PWM, self.GPIO_PWM)
+            wiringpi.softPwmCreate(self.GPIO_PWM, 0, 100)
 
     def move(self, velocity):
-
-        if velocity < 0:
+        print "move Wheel with velocity: ", velocity
+        if velocity < 0.0:
             duty_cycle = velocity * -100
-            wiringpi.softPwmWrite(self.GPIO_PWM, duty_cycle)
+            wiringpi.softPwmWrite(self.GPIO_PWM, int(duty_cycle))
             GPIO.output(self.GPIO_control1, GPIO.LOW)
             GPIO.output(self.GPIO_control2, GPIO.HIGH)
 
         else:
             duty_cycle = velocity * 100
-            wiringpi.softPwmWrite(self.GPIO_PWM, duty_cycle)
+            wiringpi.softPwmWrite(self.GPIO_PWM, int(duty_cycle))
             GPIO.output(self.GPIO_control1, GPIO.HIGH)
             GPIO.output(self.GPIO_control2, GPIO.LOW)
 
