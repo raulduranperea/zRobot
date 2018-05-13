@@ -22,7 +22,7 @@ class Sensors:
                 distances.append(sensor.pulse())
 
             callback(distances)
-            time.sleep(0.00200)
+            time.sleep(0.00400)
 
 
 class Sensor:
