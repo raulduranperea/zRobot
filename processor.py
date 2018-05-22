@@ -26,7 +26,7 @@ class Processor:
         pass
 
     def process(self, array_distances):
-        print "Distances: ", array_distances
+        #print "Distances: ", array_distances
         repulsion_angle = self.calc_repulsion_angle(array_distances)
 
         angle_level_negative = fuzz.interp_membership(self.angle, self.angle_negative, repulsion_angle)
@@ -75,7 +75,7 @@ class Processor:
             x = x + array_distances[i] * math.cos(np.radians(self.thetas[i]))
             y = y + array_distances[i] * math.sin(np.radians(self.thetas[i]))
         repulsion = math.atan2(y, x)
-        print "angulo en radianes: ", repulsion 
+        print "angulo en radianes: ", repulsion
         return repulsion
 
 
