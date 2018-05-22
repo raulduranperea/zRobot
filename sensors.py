@@ -38,6 +38,7 @@ class Sensor:
 
         # set GPIO direction (IN / OUT)
         GPIO.setup(self.TRIGGER, GPIO.OUT)
+        GPIO.setup(self.TRIGGER, False)
         GPIO.setup(self.ECHO, GPIO.IN)
 
     def pulse(self):

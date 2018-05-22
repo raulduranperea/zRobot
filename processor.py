@@ -42,6 +42,10 @@ class Processor:
         r = [1.0] * 2
         r[0] = fuzz.defuzz(self.x_speed_left, left_fuzz, 'mom')
         r[1] = fuzz.defuzz(self.x_speed_right, right_fuzz, 'mom')
+        if r[0] <= 0.3:
+            r[0] = -r[0]
+        if r[1] <= 0.3:
+            r[1] = -r[1]
         return r
 
     def aggregated_left(self, negative, null, positive):
