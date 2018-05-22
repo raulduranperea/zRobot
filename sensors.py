@@ -67,6 +67,6 @@ class Sensor:
         if distance > 1.0:
             distance = 1.0
 
-        print "Sensor: ", self.TRIGGER, " ", self.ECHO, " PULSE -> ", distance
+        #print "Sensor: ", self.TRIGGER, " ", self.ECHO, " PULSE -> ", distance
 
         return distance
