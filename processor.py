@@ -74,8 +74,9 @@ class Processor:
         for i in range(0, 6):
             x = x + array_distances[i] * math.cos(np.radians(self.thetas[i]))
             y = y + array_distances[i] * math.sin(np.radians(self.thetas[i]))
-
-        return math.atan2(y, x)
+        repulsion = math.atan2(y, x)
+        print "angulo en radianes: ", repulsion 
+        return repulsion
 
 
 class MockProcessor:

@@ -44,7 +44,7 @@ class Wheel:
         wiringpi.softPwmCreate(self.WIRING_PIN, 0, 100)
 
     def move(self, velocity):
-        print "move Wheel with velocity: ", velocity
+        #print "move Wheel with velocity: ", velocity
         if velocity < 0.0:
             duty_cycle = velocity * -100
             wiringpi.softPwmWrite(self.WIRING_PIN, int(duty_cycle))
