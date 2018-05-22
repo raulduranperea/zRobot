@@ -34,7 +34,7 @@ class Processor:
         angle_level_positive = fuzz.interp_membership(self.angle, self.angle_positive, repulsion_angle)
 
         left_fuzz = self.aggregated_left(angle_level_negative, angle_level_null, angle_level_positive)
-        right_fuzz = self.aggregated_right(angle_level_negative, angle_level_null, angle_level_positive)
+        right_fuzz = self.aggregated_right(angle_level_positive, angle_level_null, angle_level_negative)
 
         return self.calc_velocity(left_fuzz, right_fuzz)
 
