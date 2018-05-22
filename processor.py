@@ -14,12 +14,12 @@ class Processor:
     angle_null = fuzz.trimf(angle, [-math.pi, 0, math.pi])
     angle_positive = fuzz.trimf(angle, [math.pi / 4, math.pi, math.pi])
 
-    speed_right_slow = fuzz.trimf(x_speed_right, [-0.5, 0.0, 0.3])
-    speed_right_medium = fuzz.trimf(x_speed_right, [0.3, 0.5, 0.7])
+    speed_right_slow = fuzz.trimf(x_speed_right, [-1.0, -1.0, 0.3])
+    speed_right_medium = fuzz.trimf(x_speed_right, [0.3, 0.5, 1.0])
     speed_right_fast = fuzz.trimf(x_speed_right, [0.5, 1.0, 1.0])
 
-    speed_left_slow = fuzz.trimf(x_speed_left, [-0.5, 0.0, 0.3])
-    speed_left_medium = fuzz.trimf(x_speed_left, [0.3, 0.5, 0.7])
+    speed_left_slow = fuzz.trimf(x_speed_left, [-1.0, -1.0, 0.3])
+    speed_left_medium = fuzz.trimf(x_speed_left, [0.3, 0.5, 1.0])
     speed_left_fast = fuzz.trimf(x_speed_left, [0.5, 1.0, 1.0])
 
     def __init__(self):
@@ -42,7 +42,7 @@ class Processor:
         r = [1.0] * 2
         r[0] = fuzz.defuzz(self.x_speed_left, left_fuzz, 'mom')
         r[1] = fuzz.defuzz(self.x_speed_right, right_fuzz, 'mom')
-        
+
         return r
 
     def aggregated_left(self, negative, null, positive):
