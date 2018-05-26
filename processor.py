@@ -14,13 +14,13 @@ class Processor:
     angle_null = fuzz.trimf(angle, [-math.pi, 0, math.pi])
     angle_positive = fuzz.trimf(angle, [math.pi / 4, math.pi, math.pi])
 
-    speed_right_slow = fuzz.trimf(x_speed_right, [0, 0, 0.3])
-    speed_right_medium = fuzz.trimf(x_speed_right, [0, 0.5, 0.7])
-    speed_right_fast = fuzz.trimf(x_speed_right, [0.3, 1.0, 1.0])
+    speed_right_slow = fuzz.trimf(x_speed_right, [-1.0, -1.0, 0.0])
+    speed_right_medium = fuzz.trimf(x_speed_right, [-0.5,0.0, 0.5])
+    speed_right_fast = fuzz.trimf(x_speed_right, [0.0, 1.0, 1.0])
 
-    speed_left_slow = fuzz.trimf(x_speed_left, [0, 0, 0.3])
-    speed_left_medium = fuzz.trimf(x_speed_left, [0, 0.5, 0.7])
-    speed_left_fast = fuzz.trimf(x_speed_left, [0.3, 1.0, 1.0])
+    speed_left_slow = fuzz.trimf(x_speed_left, [-1.0,-1.0, 0.0])
+    speed_left_medium = fuzz.trimf(x_speed_left, [-0.5, 0.0, 0.5])
+    speed_left_fast = fuzz.trimf(x_speed_left, [0.0, 1.0, 1.0])
 
     def __init__(self):
         pass
